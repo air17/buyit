@@ -1,0 +1,22 @@
+{% load i18n %}
+<html lang="en">
+    <head>
+        <title>{% trans "Buy" %} {{ item.name }}</title>
+        <script src="https://js.stripe.com/v3/"></script>
+    </head>
+    <body>
+        <h1>{{ item.name }}</h1>
+        <p>{{ item.description }}</p>
+        <p>{{ item.price }}</p>
+        <button id="buy-button">{% trans "Buy" %}</button>
+        <script type="text/javascript">
+            const stripe = Stripe('pk_test_51M72JYKFmUO12vxi1iS5aqiVLQ7B1O4P8U3EKuOW1WMxNuvw2CNazIjIdJSjJx3Z931LLOl8TVLX52vtVKHeLslh00HdVhpIwK');
+            const buyButton = document.getElementById('buy-button');
+            buyButton.addEventListener('click', function() {
+                fetch('/buy/{{ item.id }}', {method: 'GET'})
+                    .then(response => response.json())
+                    .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+            });
+        </script>
+    </body>
+</html>
