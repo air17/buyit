@@ -13,7 +13,7 @@ services:
   web:
     build: .
     restart: unless-stopped
-    container_name: django_web
+    container_name: web
     command: bash -c "chmod +x /code/docker-entry-point.sh && /code/docker-entry-point.sh"
     volumes:
       - ./data/usersfiles:/code/usersfiles
@@ -31,6 +31,8 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - DOMAIN_NAME=${DOMAIN_NAME}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
     depends_on:
       - db
 
