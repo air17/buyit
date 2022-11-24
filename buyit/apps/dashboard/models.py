@@ -24,13 +24,24 @@ class Item(models.Model):
 
 
 class OrderItem(models.Model):
-    item = models.ForeignKey(Item, models.CASCADE)
+    item = models.ForeignKey(
+        Item,
+        models.CASCADE,
+        db_index=True,
+    )
     amount = models.PositiveIntegerField(
         "Item amount in an order",
         default=1,
         validators=[MinValueValidator(1)],
     )
-    order = models.ForeignKey(Order, models.CASCADE)
+    order = models.ForeignKey(
+        Order,
+        models.CASCADE,
+        db_index=True,
+    )
 
     def __str__(self):
         return f"{self.amount} {self.item}s in {self.order}"
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["item", "order"], name="One item in an order")]
