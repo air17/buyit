@@ -1,6 +1,12 @@
 
 Live demo: https://buyit.161e.tk
 
+### Example endpoints:
+
+- https://buyit.161e.tk/admin - Admin panel
+- https://buyit.161e.tk/item/3 - Item info
+- https://buyit.161e.tk/order/1 - Order info
+
 ## Installation
 
 ### Run in Docker
